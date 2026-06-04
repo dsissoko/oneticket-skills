@@ -32,13 +32,18 @@ Respect these dependencies when building the manifest:
 7. `<docs_path>/how/slices/` — depends on architecture.md + all us-*.md — role: architect
    Produce one slice file per implementation unit — the set of slices must cover all user stories.
 8. cross-references — depends on ALL slice task IDs from step 7 — role: architect
-   Always the last task in the manifest — no exception.
+   **Always the last task in the manifest — no exception.**
+   **Must declare `depends_on` on every task whose output files it modifies.**
    One single task — read all produced slice files and update:
    - `## Related Slices` in `epic.md`
    - `## Related Slices` in all `us-*.md`
    - `## Related Epics` and `## Related User Stories` in each `slice.md`
 
-   The `depends_on` list must include every slice task ID produced in step 7.
+   This task modifies files produced by steps 2, 3, and 7 — it must therefore depend on ALL
+   tasks from steps 2, 3, and 7. Running it in parallel with any of these tasks will cause
+   an `add/add` merge conflict that blocks the pipeline.
+
+   The `depends_on` list must include every task ID from steps 2, 3, and 7 — no exception.
 
    Cross-reference links — filename only convention:
 

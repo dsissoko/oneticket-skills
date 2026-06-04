@@ -68,6 +68,16 @@ Content must be exactly this JSON (no comments, no surrounding markdown):
 - **Valid referenced ids**: `depends_on` can only contain ids defined in `tasks`
 - **Granularity**: one task = one file produced — if a deliverable requires multiple files, create multiple tasks
 
+### Merge conflict prevention — absolute rules
+
+These rules are critical. Violating them causes `add/add` merge conflicts that block the pipeline and require human intervention.
+
+- **No shared output files** — no two tasks in the manifest may declare the same `file`. If two tasks need to contribute to the same file, they must be strictly sequenced via `depends_on`, never run in parallel.
+- **Write once per file** — once a task produces a file, no other task may write to that same file, except a dedicated cross-reference task (see below).
+- **Cross-reference task** — if a task updates files already produced by other tasks (e.g. adding `## Related Slices`, `## Related Epics` sections to existing files), it must be the **last task** in the manifest and must declare `depends_on` on **every task whose output files it touches**. Never run it in parallel with file-producing tasks.
+- **Read ≠ write dependency** — a task that only reads a file for context does not need a `depends_on`. Only tasks that write to the same file create a hard dependency.
+- **Before finalizing**: scan the manifest for duplicate `file` values. If any two tasks share the same `file`, fix the manifest before committing.
+
 ---
 
 ## Rule on the `content` field
