@@ -30,10 +30,6 @@ LOAD skill `oneticket-domain-analysis` as SECOND ACTION after git checkout — n
 | epic, user story, acceptance criteria | `oneticket-user-story` |
 | story too big, split | `oneticket-user-story-splitting` |
 | epic too large, breakdown | `oneticket-epic-breakdown` |
-| vertical slice | `oneticket-vertical-slice` |
-| C4, architecture diagram | `oneticket-c4` |
-| doc structure, docs path | `oneticket-doc-structure` |
-| game, game engine, canvas, physics, collision, game loop | `game-engine` |
 
 ## Responsibilities
 

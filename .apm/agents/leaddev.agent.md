@@ -23,7 +23,6 @@ LOAD skill `oneticket-vertical-slice` as SECOND ACTION after git checkout — no
 | Request contains | Skill to mobilize in manifest content |
 |---|---|
 | implement, implementation, build, code | `oneticket-technical-skill-picker` |
-| game, game engine, canvas, physics, collision, game loop | `game-engine` |
 | javascript, typescript, JS, TS | `oneticket-stack-js-ts` |
 | react, vite, frontend, SPA | `oneticket-stack-vite-react-primer` |
 | slice, vertical slice | `oneticket-vertical-slice` |
