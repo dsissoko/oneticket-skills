@@ -28,6 +28,7 @@ LOAD skill `oneticket-vertical-slice` as THIRD ACTION after git checkout — no 
 | diagram, mermaid, flow | `oneticket-mermaid-diagrams` |
 | documentation structure, docs path | `oneticket-doc-structure` |
 | game, game engine, canvas, physics, collision, game loop | `game-engine` |
+| arcade, 2d game, game design, game mechanics, enemies, formation, game states, scoring | `oneticket-2d-arcade` |
 
 ## Responsibilities
 
