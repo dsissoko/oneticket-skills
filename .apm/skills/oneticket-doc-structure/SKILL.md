@@ -147,6 +147,45 @@ If the structure already exists at `<docs_path>`:
 - **Every documentation file must include a `title:` frontmatter field** — required by the Starlight rendering engine:
   ```markdown
   ---
+
+---
+
+## File Ownership Matrix — Parallel Task Safety
+
+When documentation work is decomposed into parallel tasks (FAN-OUT manifest), file ownership rules **must** be respected to prevent `add/add` merge conflicts.
+
+### Shared files — ONE task only, always sequential (last in DAG)
+
+These files aggregate references to multiple other artifacts. If a manifest has multiple doc tasks, only **one task** may write to each of these files, and that task **must depend on ALL tasks** that produce the artifacts it references.
+
+| File | Why shared |
+|---|---|
+| `what/product-spec.md` | Global product vision — reflects all features and epics |
+| `what/epics/epic-N/epic.md` | References all user stories and slices of the epic |
+| `how/architecture.md` | Global technical vision — reflects all components and layers |
+
+### Exclusive files — safe for parallel tasks
+
+Each of these files belongs exclusively to one task. Two parallel tasks may safely produce these files simultaneously without conflict.
+
+| File pattern | Ownership |
+|---|---|
+| `what/epics/epic-N/user-stories/us-NNN-*.md` | One task per user story |
+| `how/c4/system-context.md` | One dedicated task |
+| `how/c4/containers.md` | One dedicated task |
+| `how/c4/components.md` | One dedicated task |
+| `how/c4/deployment.md` | One dedicated task |
+| `how/slices/slice-N-*/slice.md` | One task per slice |
+
+### Canonical decomposition pattern
+
+```
+Tasks A, B, C...  → parallel   — exclusive files only (US, slices, C4 diagrams)
+Task N (last)     → sequential — depends_on: [A, B, C...]
+                                  writes shared files: epic.md, architecture.md, product-spec.md
+```
+
+**Before finalizing any manifest:** scan for duplicate `file` values across tasks. If any two tasks declare the same file, sequence them with `depends_on` — never run them in parallel.
   title: 'Your Page Title'
   ---
   ```

@@ -136,6 +136,42 @@ Always respect this order — upstream artifacts must exist before downstream on
 
 ---
 
+## Manifest decomposition rules
+
+When the reverse-doc scope requires producing multiple artifacts, decompose into a FAN-OUT manifest. Apply these ownership rules to prevent merge conflicts — they mirror the rules in `oneticket-doc-structure` but are specialized for reverse-doc decomposition.
+
+### Parallel-safe tasks (can run simultaneously)
+
+These tasks own exclusive files — no conflict risk:
+
+| Task | Owns |
+|---|---|
+| One task per user story | `what/epics/epic-N/user-stories/us-NNN-*.md` |
+| One task per C4 diagram | `how/c4/system-context.md`, `how/c4/containers.md`, `how/c4/components.md`, `how/c4/deployment.md` |
+| One task per slice | `how/slices/slice-N-*/slice.md` |
+
+### Sequential-only tasks (must be last, depend on ALL parallel tasks)
+
+These tasks write shared files that aggregate references to other artifacts:
+
+| Task | Owns | Must depend on |
+|---|---|---|
+| product-spec.md update | `what/product-spec.md` | ALL US + slice tasks |
+| epic.md update | `what/epics/epic-N/epic.md` | ALL US + slice tasks |
+| architecture.md update | `how/architecture.md` | ALL C4 + slice tasks |
+
+### Canonical pattern
+
+```
+Tasks A, B, C...  → parallel   — US, slices, C4 diagrams (exclusive files)
+Task N (last)     → sequential — depends_on: [A, B, C...]
+                                  updates: epic.md, architecture.md, product-spec.md
+```
+
+**Rule:** if a manifest touches `epic.md`, `architecture.md`, or `product-spec.md`, that work **must** be the last task in the DAG and must declare `depends_on` on every task that produces artifacts it references.
+
+---
+
 ## Scope examples
 
 | User request | What to generate |
