@@ -1,6 +1,6 @@
 ---
 name: oneticket-scaffold-appshell
-description: "Scaffold a new React+Vite app from the AppShell template — bootstrap strategy, file ownership rules, parallel-safe task decomposition, and wiring patterns for FAN-OUT implementation."
+description: "Scaffold a new React+Vite app from the AppShell template — bootstrap strategy, file ownership rules, parallel-safe task decomposition, wiring patterns for FAN-OUT implementation, and build verification before commit. Use when scaffolding, implementing or extending an AppShell-based project."
 version: "1.0.0"
 ---
 
@@ -56,6 +56,21 @@ When `apps/<current_project>/app/` has just been copied from AppShell, the follo
 ## When AppShell is already in place
 
 The foundation is set. AppShell's conventions apply to everything that follows — locked files, component patterns, design tokens. Every task `content` field in the manifest should reference the AppShell foundation so `@dev` knows what they are building on top of.
+
+---
+
+## Build Verification — Mandatory Before Commit
+
+Before committing any TypeScript or TSX file, run:
+
+```bash
+cd apps/<current_project>/app && npm run build
+```
+
+- If errors → fix ALL TypeScript errors before committing
+- **DO NOT commit code that does not compile**
+- `npm test` (Vitest) is **not sufficient** — Vitest does not enforce `noUnusedLocals`, `readonly` incompatibility, or missing return paths
+- `npm run build` = `tsc --noEmit` + `vite build` — this is the authoritative check
 
 ---
 
