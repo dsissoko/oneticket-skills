@@ -1,6 +1,7 @@
 ---
 name: oneticket-stack-js-ts
 description: Manifest for the js-ts stack - JavaScript/TypeScript projects regardless of framework or build tool.
+version: "1.0.0"
 ---
 # Skill: stack-js-ts
 
@@ -9,6 +10,7 @@ description: Manifest for the js-ts stack - JavaScript/TypeScript projects regar
 Manifest for the `js-ts` stack — JavaScript/TypeScript projects regardless of framework or build tool.
 This skill defines the rules and conventions common to all JS/TS projects in this repository.
 
+version: "1.0.0"
 ---
 
 ## When to apply
@@ -16,6 +18,7 @@ This skill defines the rules and conventions common to all JS/TS projects in thi
 Apply when `architecture.md` identifies a JavaScript or TypeScript project.
 This skill is a prerequisite for all more specific stacks (`stack-vite-react-primer`, etc.).
 
+version: "1.0.0"
 ---
 
 ## Language and runtime rules
@@ -51,6 +54,7 @@ This skill is a prerequisite for all more specific stacks (`stack-vite-react-pri
 - Versions pinned with `^` (compatible minor updates) — never `*` or `latest`
 - Do not upgrade versions unless explicitly requested
 
+version: "1.0.0"
 ---
 
 ## Source

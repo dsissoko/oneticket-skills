@@ -1,6 +1,7 @@
 ---
 name: oneticket-technical-skill-picker
 description: Dynamically select and load the stack-specific skill sets appropriate for the current project based on architecture.md.
+version: "1.0.0"
 ---
 # Skill: technical-skill-picker
 
@@ -12,6 +13,7 @@ based on the technical context described in `architecture.md` and the active req
 This skill is loaded by technical agents (dev, qa, architect) via the `technical` set.
 It acts as a bridge between the generic role sets and the stack-specific sets.
 
+version: "1.0.0"
 ---
 
 ## When to apply
@@ -19,6 +21,7 @@ It acts as a bridge between the generic role sets and the stack-specific sets.
 Apply this skill after loading your role set (dev, qa, or architect) and before starting
 any technical task that requires stack-specific knowledge.
 
+version: "1.0.0"
 ---
 
 ## Process
@@ -62,6 +65,7 @@ A stack is explicitly mentioned but no available `stack-*` set matches
 → State that no matching skill set exists for the requested stack.
 → Do not proceed with implementation.
 
+version: "1.0.0"
 ---
 
 ## Rules

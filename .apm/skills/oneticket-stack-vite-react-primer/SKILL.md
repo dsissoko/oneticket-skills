@@ -1,6 +1,7 @@
 ---
 name: oneticket-stack-vite-react-primer
 description: Manifest for the vite-react-primer stack - React + Vite + TypeScript + Primer UI + MSW + localStorage.
+version: "1.0.0"
 ---
 # Skill: stack-vite-react-primer
 
@@ -12,6 +13,7 @@ for all projects using this stack.
 
 All rules from `stack-js-ts` apply in addition to the rules below.
 
+version: "1.0.0"
 ---
 
 ## When to apply
@@ -19,6 +21,7 @@ All rules from `stack-js-ts` apply in addition to the rules below.
 Apply when `architecture.md` identifies a React + Vite + Primer UI stack.
 This skill is the reference for the Scaffold layer — use it whenever creating or modifying `package.json`.
 
+version: "1.0.0"
 ---
 
 ## Canonical `package.json`
@@ -304,6 +307,7 @@ if (typeof window !== 'undefined' && !window.CSS) {
 
 **Critical:** never use `window as any` or `CSS as any` — `Object.defineProperty` is natively typed and avoids the `@typescript-eslint/no-explicit-any` ESLint error. Copy this block exactly.
 
+version: "1.0.0"
 ---
 
 ## Source

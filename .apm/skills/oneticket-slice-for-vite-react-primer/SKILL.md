@@ -1,6 +1,7 @@
 ---
 name: oneticket-slice-for-vite-react-primer
 description: Decompose a user story implementation into sequential technical lots to keep each agent session focused, buildable, and within timeout limits.
+version: "1.0.0"
 ---
 
 # Vertical Slice Decomposition
@@ -15,6 +16,7 @@ The fundamental principle:
 
 Small models (Minimax, Qwen, Gemma, small Llama) fail when they must maintain a large context, modify many files, or reason across layers simultaneously. Micro-lots reduce context, limit dependencies, and increase success rate.
 
+version: "1.0.0"
 ---
 
 ## When to apply
@@ -34,6 +36,7 @@ Technical layers for the `stack-vite-react-primer` stack:
 **If the US touches 1 or 2 layers → implement in one lot, no decomposition needed.**
 **If the US touches 3 or more layers → decompose into sequential lots.**
 
+version: "1.0.0"
 ---
 
 ## Lot constraints
@@ -48,6 +51,7 @@ Each lot must respect:
 
 **Special rule for the Scaffold lot:** the smoke test file (`src/test/smoke/app.smoke.test.tsx`) is mandatory — it mounts `<App />` and asserts it does not throw. Without it, `npm run test:smoke` finds no files and exits with code 1, breaking CI.
 
+version: "1.0.0"
 ---
 
 ## Dependency-First order
@@ -64,6 +68,7 @@ Always implement in this order — never skip a layer to implement a higher one 
 
 Rationale: small models are unreliable when discovering architecture implicitly. If types and service contracts exist first, UI implementation becomes a simple completion task.
 
+version: "1.0.0"
 ---
 
 ## Incremental validation loop
@@ -80,6 +85,7 @@ Apply skill `frontend-runtime-sanity` after each lot:
 
 **Never start the next lot if the current one does not build and pass tests.**
 
+version: "1.0.0"
 ---
 
 ## Scaffold-First within each lot
@@ -94,6 +100,7 @@ Inside a lot, always in this order:
 
 Rationale: small models succeed at local completions, not large cognitive jumps.
 
+version: "1.0.0"
 ---
 
 ## How to present lots to the user
@@ -122,6 +129,7 @@ Validation: npm run build + npm run test:smoke
 > If you choose A, I'll do my best to respond as quickly as possible — but each lot may take a few minutes.
 ```
 
+version: "1.0.0"
 ---
 
 ## Mode dégradé (no hooks)

@@ -1,6 +1,7 @@
 ---
 name: oneticket-safety-for-vite-react-primer
 description: Ensure every new application created from this template has a minimal, generic error boundary at startup and at the UI/root level, based on cross-language error handling patterns.
+version: "1.0.0"
 ---
 
 # App First-Generation Safety
@@ -19,6 +20,7 @@ so that:
 
 This skill complements the generic patterns from `wshobson/error-handling-patterns` and specializes them for this template.
 
+version: "1.0.0"
 ---
 
 ## When to Use
@@ -34,6 +36,7 @@ Examples:
 - adding a new backend service under `apps/<current_project>/backend/`,
 - adding a new CLI entrypoint.
 
+version: "1.0.0"
 ---
 
 ## Core Principles
@@ -53,6 +56,7 @@ Examples:
    - Local error handling (e.g. validation errors, expected failures) is still handled near the source.
    - Boundaries are a last resort for unexpected, unrecoverable errors.
 
+version: "1.0.0"
 ---
 
 ## Process
@@ -118,6 +122,7 @@ When implementing boundaries:
    - user-visible boundaries (UI root, HTTP global handler),
    - not deep inside local feature code.
 
+version: "1.0.0"
 ---
 
 ## React + Vite Frontend Mapping (current stack)

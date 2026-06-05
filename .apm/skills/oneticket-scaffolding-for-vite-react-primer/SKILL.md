@@ -1,6 +1,7 @@
 ---
 name: oneticket-scaffolding-for-vite-react-primer
 description: Practical recipes for Vite + React projects in non-interactive agent environments (scaffolding, MSW setup, etc.).
+version: "1.0.0"
 ---
 
 # Vite React Agent Cookbook

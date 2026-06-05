@@ -1,6 +1,7 @@
 ---
 name: oneticket-msw-setup-for-vite-react-primer
 description: Canonical MSW setup for React + Vite frontends (worker script, Vite integration, and bootstrap rules).
+version: "1.0.0"
 ---
 
 # MSW + Vite Setup
@@ -17,6 +18,7 @@ with a React + Vite frontend, so that:
 This skill complements `openclaw/msw-for-js-ts` by encoding the concrete
 choices for this repo (Vite + `/public`).
 
+version: "1.0.0"
 ---
 
 ## When to Use
@@ -27,6 +29,7 @@ choices for this repo (Vite + `/public`).
   - enabling MSW for the first time in a new app, or  
   - troubleshooting MSW registration / 404 / JSON parse errors.
 
+version: "1.0.0"
 ---
 
 ## Step 1 – Ensure the worker script exists
@@ -63,6 +66,7 @@ If the worker is missing or moved, MSW will log:
 
 Treat these messages as **blocking** until the worker is restored.
 
+version: "1.0.0"
 ---
 
 ## Step 2 – Browser bootstrap pattern
@@ -93,6 +97,7 @@ This ensures that:
 - `fetch(...).json()` calls receive JSON from handlers instead of the
   HTML shell.
 
+version: "1.0.0"
 ---
 
 ## Step 3 – Node/test setup reminder
@@ -110,6 +115,7 @@ dedicated `server.ts` plus a test setup file:
 When this skill is applied, do **not** change this pattern unless
 `openclaw/msw-for-js-ts` explicitly requires it.
 
+version: "1.0.0"
 ---
 
 ## Step 4 – Error patterns to treat as blocking

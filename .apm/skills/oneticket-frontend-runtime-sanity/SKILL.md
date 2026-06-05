@@ -1,6 +1,7 @@
 ---
 name: oneticket-frontend-runtime-sanity
 description: Ensure a minimal runtime smoke-test setup exists for the frontend so the agent can verify the app renders without crashing after code changes.
+version: "1.0.0"
 ---
 
 # Frontend Runtime Sanity
@@ -12,6 +13,7 @@ Ensure that:
 - at least one **runtime smoke test** exists for the frontend, and
 - the agent **runs** it after any significant frontend change before handing control back to the user.
 
+version: "1.0.0"
 ---
 
 ## When to Use
@@ -21,6 +23,7 @@ Use this skill when:
 - the project includes a graphical frontend, and
 - the agent is generating a new frontend application or making non-trivial changes to existing frontend code (logic, components, routing, state, theming).
 
+version: "1.0.0"
 ---
 
 ## Expected Baseline
@@ -34,6 +37,7 @@ A minimal runtime smoke test setup must include:
    - asserts only that it does not throw — no UI detail assertions.
 3. **An npm script** (or equivalent) to run the smoke test in CI mode (e.g. `test:smoke`).
 
+version: "1.0.0"
 ---
 
 ## Process
@@ -61,6 +65,7 @@ Any failure is **blocking** — fix the issue or explicitly report why it cannot
 
 This skill does not require full test coverage or complex CI pipelines. Its only goal is to verify that the app starts and the root component mounts without a runtime error.
 
+version: "1.0.0"
 ---
 
 ## Common Runtime Error Patterns to Watch
