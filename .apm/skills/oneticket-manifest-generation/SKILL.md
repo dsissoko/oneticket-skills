@@ -66,7 +66,7 @@ Content must be exactly this JSON (no comments, no surrounding markdown):
 - **Sequential vs parallel**: prefer sequential dependent tasks when they risk modifying shared files. Prefer parallel tasks when they touch distinct locations.
 - **No cycles**: A cannot depend on B if B depends on A
 - **Valid referenced ids**: `depends_on` can only contain ids defined in `tasks`
-- **Granularity**: one task = one file produced — if a deliverable requires multiple files, create multiple tasks
+- **Granularity**: a task may produce multiple files — but no two parallel tasks may write to the same file. If two tasks need the same file, sequence them with `depends_on`.
 
 ### Merge conflict prevention — absolute rules
 
