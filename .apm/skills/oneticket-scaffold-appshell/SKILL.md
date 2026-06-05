@@ -32,7 +32,7 @@ When `apps/<current_project>/app/` has just been copied from AppShell, the follo
 
 | File | What to replace |
 |---|---|
-| `src/screens/HomeScreen.tsx` | Replace with project home — main entry point for the app |
+| `src/screens/HomeScreen.tsx` | Replace with project home — main entry point for the app. **Also update the `"/"` route in `src/main.tsx` to mount this component — the AppShell placeholder must not remain on the root route.** |
 | `src/screens/AboutScreen.tsx` | Replace with project about content, or remove if not needed |
 | `src/screens/DemoScreen.tsx` | Remove or replace — AppShell demo, not a project screen |
 | `index.html` | Update `<title>` to project name |
@@ -143,8 +143,12 @@ Task X: Data Layer
 Task N+1: Integration & Wiring
 ├─ Depends: ALL tasks 1–N
 ├─ Updates: src/main.tsx — lazy imports + route array (ALL screens wired here, nowhere else)
+│   ├─ REMOVE all AppShell placeholder routes (Demo, About, Help) unless the project needs them
+│   ├─ REPLACE HomeScreen with the project's real home component on the "/" route
+│   ├─ Only keep routes that correspond to actual project UX — no orphan routes
+│   └─ Nav items in Header.tsx must match exactly the routes kept here
 ├─ Updates: src/components/index.ts — export ALL new components (barrel file, touch only here)
-├─ Updates: src/components/layout/Header.tsx — add nav links for new screens
+├─ Updates: src/components/layout/Header.tsx — nav links must match routes in main.tsx exactly
 ├─ Updates: src/screens/routing.test.tsx — add route assertions
 ├─ Runs: npm run build + npm run test
 └─ Output: fully integrated, tested, deployable app
