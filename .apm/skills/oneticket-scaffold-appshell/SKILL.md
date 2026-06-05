@@ -147,6 +147,9 @@ Task N+1: Integration & Wiring
 | `src/main.tsx` | Integration Task | ❌ NO | Touch only in task N+1 |
 | `src/components/index.ts` | Integration Task | ❌ NO | Barrel file — touch only in task N+1 |
 | `src/components/layout/Header.tsx` | Integration Task | ❌ NO | Nav links — touch only in task N+1 |
+| `tsconfig.json` | Integration Task | ❌ NO | Shared config — touch only in task N+1 |
+| `vite.config.ts` | Integration Task | ❌ NO | Shared config — touch only in task N+1 |
+| `package.json` | Integration Task | ❌ NO | Shared config — touch only in task N+1 |
 | `src/mocks/handlers.ts` | Multiple tasks | ⚠️ APPEND ONLY | Each task adds a `// <Feature> handlers` block |
 | `src/mocks/data/*.ts` | Multiple tasks | ⚠️ APPEND ONLY | Append new entities only |
 | `src/screens/routing.test.tsx` | Integration Task | ❌ NO | Route assertions — task N+1 only |
@@ -155,7 +158,7 @@ Task N+1: Integration & Wiring
 | `tailwind.config.ts` | Task 0 | ❌ NO | Frozen design tokens |
 | `src/styles/globals.css` | Task 0 | ❌ NO | Frozen theme variables |
 
-**Critical rule**: `src/main.tsx`, `src/components/index.ts`, and `src/components/layout/Header.tsx` are **shared wiring files** — written **once**, by the Integration Task, **after all parallel tasks complete**. No parallel task may touch these files.
+**Critical rule**: `src/main.tsx`, `src/components/index.ts`, `src/components/layout/Header.tsx`, `tsconfig.json`, `vite.config.ts`, and `package.json` are **shared config/wiring files** — written **once**, by the Integration Task, **after all parallel tasks complete**. No parallel task may touch these files.
 
 ---
 
