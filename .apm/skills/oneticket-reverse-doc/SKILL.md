@@ -1,5 +1,5 @@
 ---
-name: oneticket-retrodoc
+name: oneticket-reverse-doc
 description: "Reverse-document an existing app by inferring missing or outdated documentation from the source code. Incremental update — never overwrite existing non-empty content. Use when asked to generate, update, or complete product spec, architecture, epics, user stories, C4 diagrams, or slices from an existing codebase."
 version: "1.0.0"
 ---
