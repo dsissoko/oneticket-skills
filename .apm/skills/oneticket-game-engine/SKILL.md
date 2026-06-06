@@ -1,5 +1,5 @@
 ---
-name: game-engine
+name: oneticket-game-engine
 description: Build 2D browser games using HTML5 Canvas API and React. Use when implementing game loops, collision detection, player controls, rendering, or game state management in a React+Vite+TypeScript stack.
 version: 1.0.0
 ---
