@@ -1,6 +1,6 @@
 ---
 name: oneticket-vertical-slice
-description: Derive and document vertical implementation slices from epics, user stories and architecture. Writes to how/slices/ in the project docs_path.
+description: "Derive and document vertical implementation slices from epics, user stories and architecture. Writes to how/slices/ in the project docs_path."
 version: 1.0.0
 ---
 

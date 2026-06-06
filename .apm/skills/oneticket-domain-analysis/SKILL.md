@@ -1,6 +1,6 @@
 ---
 name: oneticket-domain-analysis
-description: Analyze a business domain to identify entities, relationships, rules, and process flows.
+description: "Analyze a business domain to identify entities, relationships, rules, and process flows."
 compatibility: opencode
 ---
 

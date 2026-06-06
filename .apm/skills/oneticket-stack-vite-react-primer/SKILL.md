@@ -1,6 +1,6 @@
 ---
 name: oneticket-stack-vite-react-primer
-description: Manifest for the vite-react-primer stack - React + Vite + TypeScript + Primer UI + MSW + localStorage.
+description: "Manifest for the vite-react-primer stack - React + Vite + TypeScript + Primer UI + MSW + localStorage."
 version: "1.0.0"
 ---
 # Skill: stack-vite-react-primer

@@ -1,6 +1,6 @@
 ---
 name: oneticket-msw-setup-for-vite-react-primer
-description: Canonical MSW setup for React + Vite frontends (worker script, Vite integration, and bootstrap rules).
+description: "Canonical MSW setup for React + Vite frontends (worker script, Vite integration, and bootstrap rules)."
 version: "1.0.0"
 ---
 

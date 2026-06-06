@@ -1,6 +1,6 @@
 ---
 name: oneticket-c4
-description: Generate C4 architecture documentation using Mermaid diagrams. Writes to how/c4/ in the project docs_path. Use for architecture diagrams, system context, container, component, or deployment diagrams.
+description: "Generate C4 architecture documentation using Mermaid diagrams. Writes to how/c4/ in the project docs_path. Use for architecture diagrams, system context, container, component, or deployment diagrams."
 version: 1.0.0
 ---
 

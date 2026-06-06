@@ -1,6 +1,6 @@
 ---
 name: oneticket-init-knowledge
-description: Initialize and validate the mandatory knowledge base before any documentation or development cycle. Enforces sequential human-gated validation of product-spec.md, architecture.md, and epic-0-mvp.
+description: "Initialize and validate the mandatory knowledge base before any documentation or development cycle. Enforces sequential human-gated validation of product-spec.md, architecture.md, and epic-0-mvp."
 version: 1.0.0
 ---
 

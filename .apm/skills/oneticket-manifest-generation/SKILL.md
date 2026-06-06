@@ -1,6 +1,6 @@
 ---
 name: oneticket-manifest-generation
-description: Know the exact manifest format to produce when decomposing a request into parallel executable tasks for OneTicket.
+description: "Know the exact manifest format to produce when decomposing a request into parallel executable tasks for OneTicket."
 version: 1.0.0
 ---
 

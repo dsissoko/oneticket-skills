@@ -1,6 +1,6 @@
 ---
 name: oneticket-epic-breakdown
-description: Break down epics into user stories using 9 Humanizing Work split patterns. Use when a backlog item is too large to estimate, sequence, or deliver safely.
+description: "Break down epics into user stories using 9 Humanizing Work split patterns. Use when a backlog item is too large to estimate, sequence, or deliver safely."
 version: 1.0.0
 ---
 

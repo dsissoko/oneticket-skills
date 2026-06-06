@@ -1,6 +1,6 @@
 ---
 name: oneticket-stack-js-ts
-description: Manifest for the js-ts stack - JavaScript/TypeScript projects regardless of framework or build tool.
+description: "Manifest for the js-ts stack - JavaScript/TypeScript projects regardless of framework or build tool."
 version: "1.0.0"
 ---
 # Skill: stack-js-ts

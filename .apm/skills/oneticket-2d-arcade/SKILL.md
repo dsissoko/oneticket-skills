@@ -1,6 +1,6 @@
 ---
 name: oneticket-2d-arcade
-description: Patterns for 2D arcade games (Space Invaders, Breakout, Pac-Man style). Use when implementing enemy formations, projectiles, wave progression, lives, scoring, or classic arcade game states.
+description: "Patterns for 2D arcade games (Space Invaders, Breakout, Pac-Man style). Use when implementing enemy formations, projectiles, wave progression, lives, scoring, or classic arcade game states."
 version: 1.0.0
 ---
 

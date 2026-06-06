@@ -1,6 +1,6 @@
 ---
 name: oneticket-user-story-splitting
-description: Break large stories or epics into smaller deliverable stories using 8 proven split patterns. Use when backlog items are too big for estimation, sequencing, or independent release.
+description: "Break large stories or epics into smaller deliverable stories using 8 proven split patterns. Use when backlog items are too big for estimation, sequencing, or independent release."
 version: 1.0.0
 ---
 

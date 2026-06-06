@@ -1,6 +1,6 @@
 ---
 name: oneticket-skills-health-check
-description: Check the integrity and source availability of all skills installed in skills/.
+description: "Check the integrity and source availability of all skills installed in skills/."
 ---
 # skills-health-check
 

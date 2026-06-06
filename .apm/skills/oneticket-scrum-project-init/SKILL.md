@@ -1,6 +1,6 @@
 ---
 name: oneticket-scrum-project-init
-description: Initialize a GitHub Project v2 with a structured Scrum backlog - epics, user stories, and sprint planning.
+description: "Initialize a GitHub Project v2 with a structured Scrum backlog - epics, user stories, and sprint planning."
 compatibility: opencode
 ---
 # Skill: scrum-project-init

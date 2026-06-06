@@ -1,6 +1,6 @@
 ---
 name: oneticket-e2e-for-playwright
-description: Minimal browser-based E2E smoke test for any frontend, so the agent can automatically detect client-side console errors and page-load issues.
+description: "Minimal browser-based E2E smoke test for any frontend, so the agent can automatically detect client-side console errors and page-load issues."
 ---
 
 # Frontend E2E Sanity

@@ -1,6 +1,6 @@
 ---
 name: oneticket-user-story
-description: Create user stories with Mike Cohn format and Gherkin acceptance criteria. Use when turning user needs into development-ready work with clear outcomes and testable conditions.
+description: "Create user stories with Mike Cohn format and Gherkin acceptance criteria. Use when turning user needs into development-ready work with clear outcomes and testable conditions."
 version: 1.0.0
 ---
 

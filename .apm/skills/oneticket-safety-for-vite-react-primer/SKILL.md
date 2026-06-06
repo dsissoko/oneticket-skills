@@ -1,6 +1,6 @@
 ---
 name: oneticket-safety-for-vite-react-primer
-description: Ensure every new application created from this template has a minimal, generic error boundary at startup and at the UI/root level, based on cross-language error handling patterns.
+description: "Ensure every new application created from this template has a minimal, generic error boundary at startup and at the UI/root level, based on cross-language error handling patterns."
 version: "1.0.0"
 ---
 
