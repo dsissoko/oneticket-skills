@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/dsissoko/oneticket-skills/compare/v1.0.0...v1.1.0) (2026-06-06)
+
+
+### Features
+
+* v1.0.0 catalog — oneticket-c4 and oneticket-epic-breakdown enriched ([2be3544](https://github.com/dsissoko/oneticket-skills/commit/2be35447e99cc7c5938e8632337b595ff5097744))
+* v1.0.0 catalog — oneticket-c4 and oneticket-epic-breakdown enriched ([9bc7d44](https://github.com/dsissoko/oneticket-skills/commit/9bc7d44e15e5b92a05bd47b1bb1c17b4be73fab4))
+
 ## [1.0.0](https://github.com/dsissoko/oneticket-skills/compare/v0.9.0...v1.0.0) (2026-06-06)
 
 
