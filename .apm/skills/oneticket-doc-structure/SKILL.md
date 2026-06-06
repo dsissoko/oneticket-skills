@@ -1,6 +1,6 @@
 ---
 name: oneticket-doc-structure
-description: Know and maintain the documentation structure for any project managed by OneTicket. Use to initialize, complete, or extend project documentation.
+description: "Know and maintain the documentation structure for any project managed by OneTicket. Use to initialize, complete, or extend project documentation."
 version: 1.0.0
 ---
 

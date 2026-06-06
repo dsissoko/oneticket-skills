@@ -1,6 +1,6 @@
 ---
 name: oneticket-slice-for-vite-react-primer
-description: Decompose a user story implementation into sequential technical lots to keep each agent session focused, buildable, and within timeout limits.
+description: "Decompose a user story implementation into sequential technical lots to keep each agent session focused, buildable, and within timeout limits."
 version: "1.0.0"
 ---
 

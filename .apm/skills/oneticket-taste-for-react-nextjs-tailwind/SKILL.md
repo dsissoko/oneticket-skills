@@ -1,6 +1,6 @@
 ---
 name: oneticket-taste-for-react-nextjs-tailwind
-description: Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.
+description: "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering."
 ---
 
 # High-Agency Frontend Skill

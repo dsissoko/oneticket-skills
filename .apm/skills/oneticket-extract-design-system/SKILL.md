@@ -1,6 +1,6 @@
 ---
 name: oneticket-extract-design-system
-description: Extract design primitives from a public website and generate starter token files for your project.
+description: "Extract design primitives from a public website and generate starter token files for your project."
 ---
 
 # Extract Design System

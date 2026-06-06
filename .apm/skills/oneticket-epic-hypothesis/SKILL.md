@@ -1,6 +1,6 @@
 ---
 name: oneticket-epic-hypothesis
-description: Frame an epic as a testable hypothesis with target user, expected outcome, and validation method. Use when defining a major initiative before roadmap, discovery, or delivery planning.
+description: "Frame an epic as a testable hypothesis with target user, expected outcome, and validation method. Use when defining a major initiative before roadmap, discovery, or delivery planning."
 version: 1.0.0
 ---
 

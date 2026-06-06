@@ -1,6 +1,6 @@
 ---
 name: oneticket-ci-for-vite-react-primer
-description: Create and maintain the frontend CI workflow based on the stack defined in architecture.md
+description: "Create and maintain the frontend CI workflow based on the stack defined in architecture.md"
 ---
 
 # CI Workflow Manager

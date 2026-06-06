@@ -1,6 +1,6 @@
 ---
 name: oneticket-technical-skill-picker
-description: Dynamically select and load the stack-specific skill sets appropriate for the current project based on architecture.md.
+description: "Dynamically select and load the stack-specific skill sets appropriate for the current project based on architecture.md."
 version: "1.0.0"
 ---
 # Skill: technical-skill-picker

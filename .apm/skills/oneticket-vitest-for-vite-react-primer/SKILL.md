@@ -1,6 +1,6 @@
 ---
 name: oneticket-vitest-for-vite-react-primer
-description: Bridge React + Primer with Vitest runtime smoke tests, reusing frontend-runtime-sanity while keeping tests robust when @primer/react imports CSS.
+description: "Bridge React + Primer with Vitest runtime smoke tests, reusing frontend-runtime-sanity while keeping tests robust when @primer/react imports CSS."
 ---
 
 # Primer + Vitest Runtime Sanity

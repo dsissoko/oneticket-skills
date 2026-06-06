@@ -1,6 +1,6 @@
 ---
 name: oneticket-architecture-for-vite-react-primer
-description: Enforce a clean, readable React + Primer frontend architecture with strict separation of UI, hooks, domain rules, validation, API, and view models.
+description: "Enforce a clean, readable React + Primer frontend architecture with strict separation of UI, hooks, domain rules, validation, API, and view models."
 ---
 
 # React + Primer Feature Architecture

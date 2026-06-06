@@ -1,6 +1,6 @@
 ---
 name: oneticket-frontend-runtime-sanity
-description: Ensure a minimal runtime smoke-test setup exists for the frontend so the agent can verify the app renders without crashing after code changes.
+description: "Ensure a minimal runtime smoke-test setup exists for the frontend so the agent can verify the app renders without crashing after code changes."
 version: "1.0.0"
 ---
 

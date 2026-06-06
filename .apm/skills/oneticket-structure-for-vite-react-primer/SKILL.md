@@ -1,6 +1,6 @@
 ---
 name: oneticket-structure-for-vite-react-primer
-description: Minimal monorepo layout for this template, with explicit frontend/backend separation under apps/<current_project>/ and integration with product-spec.md, architecture.md, and docs/.
+description: "Minimal monorepo layout for this template, with explicit frontend/backend separation under apps/<current_project>/ and integration with product-spec.md, architecture.md, and docs/."
 ---
 
 # Monorepo Simple Structure
