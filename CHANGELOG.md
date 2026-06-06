@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.0](https://github.com/dsissoko/oneticket-skills/compare/v1.0.0...v2.0.0) (2026-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* both skills replaced with enriched versions from oneticket repo.
+
+### Features
+
+* correct release classification — skill enrichment is non-breaking ([f42631a](https://github.com/dsissoko/oneticket-skills/commit/f42631aa87259b0938e609ceb2a1f40ddb905192))
+* correct release classification — skill enrichment is non-breaking ([fc2bec9](https://github.com/dsissoko/oneticket-skills/commit/fc2bec9e8f0a21b0e4f47b8d8a81e0713404a510))
+* enrich oneticket-c4 and oneticket-epic-breakdown with complete upstream content ([7c20472](https://github.com/dsissoko/oneticket-skills/commit/7c204726a7644380e67cfe935e3df5ab6246d382))
+
 ## [1.0.0](https://github.com/dsissoko/oneticket-skills/compare/v0.9.0...v1.0.0) (2026-06-06)
 
 
