@@ -2,7 +2,10 @@
 name: oneticket-vertical-slice
 description: "Derive and document vertical implementation slices from epics, user stories and architecture. Writes to how/slices/ in the project docs_path."
 version: 1.0.0
+deprecated: true
 ---
+
+<!-- ⚠️ Legacy — this skill is replaced by oneticket-create-sprint (for @po) and oneticket-complete-sprint-technical (for @architect). Sprints replace slices as the implementation planning unit. This skill is preserved for reverse-doc compatibility on legacy projects that still use how/slices/. Do not use for new projects. -->
 
 # oneticket-vertical-slice
 

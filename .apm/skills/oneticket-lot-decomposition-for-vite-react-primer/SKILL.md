@@ -1,10 +1,10 @@
 ---
-name: oneticket-slice-for-vite-react-primer
+name: oneticket-lot-decomposition-for-vite-react-primer
 description: "Decompose a user story implementation into sequential technical lots to keep each agent session focused, buildable, and within timeout limits."
-version: "1.0.0"
+version: "2.0.0"
 ---
 
-# Vertical Slice Decomposition
+# Lot Decomposition
 
 ## Purpose
 

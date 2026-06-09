@@ -1,7 +1,7 @@
 ---
 name: oneticket-doc-structure
 description: "Know and maintain the documentation structure for any project managed by OneTicket. Use to initialize, complete, or extend project documentation."
-version: 1.0.0
+version: 2.0.0
 ---
 
 # oneticket-doc-structure
@@ -12,7 +12,7 @@ This skill gives the agent full knowledge of the documentation structure used by
 
 Use it to:
 - initialize a documentation structure that does not exist yet
-- add a missing artifact (epic, user story, slice, etc.)
+- add a missing artifact (epic, user story, sprint, ADR, etc.)
 - complete or extend an existing structure
 - verify that a document is in the right place
 
@@ -43,9 +43,10 @@ Every project documentation lives under `<docs_path>/` with the following struct
 │   │   ├── containers.md
 │   │   ├── components.md
 │   │   └── deployment.md
-│   └── slices/
-│       └── slice-1-<name>/
-│           └── slice.md
+│   ├── sprints/
+│   │   └── sprint-N-<name>/
+│   │       └── sprint.md
+│   └── adr-NNN-<name>.md
 ├── ship/
 │   └── README.md
 └── run/
@@ -64,7 +65,8 @@ Every project documentation lives under `<docs_path>/` with the following struct
 | `how/` | Technical solution implementing `what/` |
 | `how/architecture.md` | Macro architecture |
 | `how/c4/` | C4 architectural views |
-| `how/slices/` | Vertical implementation slices |
+| `how/sprints/` | Implementation sprints — time-boxed delivery iterations |
+| `how/adr-NNN-<name>.md` | Architecture Decision Records — flat in `how/`, one file per decision |
 | `ship/` | Build, packaging, CI/CD, release pipelines |
 | `run/` | Infrastructure, operations, observability |
 
@@ -80,7 +82,8 @@ All templates are located in `.oneticket/templates/`:
 | Architecture | `.oneticket/templates/architecture.md` |
 | Epic | `.oneticket/templates/epic.md` |
 | User Story | `.oneticket/templates/us.md` |
-| Slice | `.oneticket/templates/slice.md` |
+| Sprint | `.oneticket/templates/sprint.md` |
+| ADR | `.oneticket/templates/adr.md` |
 
 Always use the corresponding template when creating a new document.
 Copy the template content and fill in the sections — never create a document from scratch.
@@ -99,7 +102,8 @@ Copy the template content and fill in the sections — never create a document f
 | C4 containers | `<docs_path>/how/c4/containers.md` |
 | C4 components | `<docs_path>/how/c4/components.md` |
 | C4 deployment | `<docs_path>/how/c4/deployment.md` |
-| Slice | `<docs_path>/how/slices/slice-N-<name>/slice.md` |
+| Sprint | `<docs_path>/how/sprints/sprint-N-<name>/sprint.md` |
+| ADR | `<docs_path>/how/adr-NNN-<name>.md` |
 | CI/CD, build pipeline, deployment config | `<docs_path>/ship/<name>.md` |
 | Operational runbook, infrastructure, observability | `<docs_path>/run/<name>.md` |
 
@@ -111,9 +115,10 @@ Copy the template content and fill in the sections — never create a document f
 |---|---|---|
 | Epic directory | `epic-N-<kebab-name>` | `epic-0-mvp`, `epic-1-authentication` |
 | User Story file | `us-NNN-<kebab-name>.md` | `us-001-login.md`, `us-002-logout.md` |
-| Slice directory | `slice-N-<kebab-name>` | `slice-1-user-login`, `slice-2-dashboard` |
+| Sprint directory | `sprint-N-<kebab-name>` | `sprint-1-foundation`, `sprint-2-dashboard` |
+| ADR file | `adr-NNN-<kebab-name>.md` | `adr-001-auth-strategy.md`, `adr-002-state-management.md` |
 
-Numbers are zero-padded: `epic-0`, `epic-1`, `us-001`, `us-002`, `slice-1`, `slice-2`.
+Numbers are zero-padded: `epic-0`, `epic-1`, `us-001`, `us-002`, `sprint-1`, `sprint-2`, `adr-001`, `adr-002`.
 
 ---
 
@@ -147,6 +152,10 @@ If the structure already exists at `<docs_path>`:
 - **Every documentation file must include a `title:` frontmatter field** — required by the Starlight rendering engine:
   ```markdown
   ---
+  title: 'Your Page Title'
+  ---
+  ```
+  Without it, the doc site build will fail. This applies to every new file created in `<docs_path>/`.
 
 ---
 
@@ -161,7 +170,7 @@ These files aggregate references to multiple other artifacts. If a manifest has 
 | File | Why shared |
 |---|---|
 | `what/product-spec.md` | Global product vision — reflects all features and epics |
-| `what/epics/epic-N/epic.md` | References all user stories and slices of the epic |
+| `what/epics/epic-N/epic.md` | References all user stories and sprints of the epic |
 | `how/architecture.md` | Global technical vision — reflects all components and layers |
 
 ### Exclusive files — safe for parallel tasks
@@ -175,18 +184,25 @@ Each of these files belongs exclusively to one task. Two parallel tasks may safe
 | `how/c4/containers.md` | One dedicated task |
 | `how/c4/components.md` | One dedicated task |
 | `how/c4/deployment.md` | One dedicated task |
-| `how/slices/slice-N-*/slice.md` | One task per slice |
+| `how/sprints/sprint-N-*/sprint.md` | `@po` creates the sprint shell + cross-references — `@architect` completes `## Technical Notes` — these are two sequential tasks on the same file, never parallel |
+| `how/adr-NNN-*.md` | One task per ADR — owned by `@architect` |
+
+### Sprint file — special two-phase ownership
+
+A sprint file is written in two sequential phases:
+1. `@po` creates `sprint.md` — goal description, cross-references (epic ↔ US ↔ sprint ↔ ADR links)
+2. `@architect` completes `## Technical Notes` — depends on `@po`'s task
+
+These two tasks **must never run in parallel** — the second must declare `depends_on` on the first.
 
 ### Canonical decomposition pattern
 
 ```
-Tasks A, B, C...  → parallel   — exclusive files only (US, slices, C4 diagrams)
-Task N (last)     → sequential — depends_on: [A, B, C...]
-                                  writes shared files: epic.md, architecture.md, product-spec.md
+Tasks A, B, C...  → parallel   — exclusive files only (US, C4 diagrams, ADRs)
+Task P            → sequential — @po creates sprint.md shell + cross-references
+                                  depends_on: [A, B, C...]
+Task Q (last)     → sequential — @architect completes ## Technical Notes in sprint.md
+                                  depends_on: [P]
 ```
 
 **Before finalizing any manifest:** scan for duplicate `file` values across tasks. If any two tasks declare the same file, sequence them with `depends_on` — never run them in parallel.
-  title: 'Your Page Title'
-  ---
-  ```
-  Without it, the doc site build will fail. This applies to every new file created in `<docs_path>/`.
