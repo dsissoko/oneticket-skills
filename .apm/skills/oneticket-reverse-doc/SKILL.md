@@ -1,7 +1,7 @@
 ---
 name: oneticket-reverse-doc
-description: "Reverse-document an existing app by inferring missing or outdated documentation from the source code. Incremental update — never overwrite existing non-empty content. Use when asked to generate, update, or complete product spec, architecture, epics, user stories, C4 diagrams, or slices from an existing codebase."
-version: "1.0.0"
+description: "Reverse-document an existing app by inferring missing or outdated documentation from the source code. Incremental update — never overwrite existing non-empty content. Use when asked to generate, update, or complete product spec, architecture, epics, user stories, C4 diagrams, or sprints from an existing codebase."
+version: 2.0.0
 ---
 
 # oneticket-retrodoc
@@ -12,7 +12,7 @@ Infer and generate structured documentation from an existing codebase.
 
 Use this skill when the user asks to:
 - generate documentation from code (`reverse-doc`, `retrodoc`, `doc from code`)
-- update or complete missing documentation artifacts (epics, user stories, slices, C4, architecture)
+- update or complete missing documentation artifacts (epics, user stories, sprints, ADRs, C4, architecture)
 - synchronize documentation with the current state of the implementation
 
 This skill **orchestrates** — it delegates format and placement rules to the specialized skills below. Load them explicitly in the order listed.
@@ -30,13 +30,16 @@ skill("oneticket-doc-structure")   — structure, templates, placement, frontmat
 skill("oneticket-user-story")      — user story format (Mike Cohn + Gherkin)
 skill("oneticket-epic-breakdown")  — epic decomposition patterns
 skill("oneticket-c4")              — C4 architecture diagrams in Mermaid
-skill("oneticket-vertical-slice")  — vertical slice derivation from epics + architecture
+skill("oneticket-create-sprint")   — sprint creation from epics + user stories (@po)
+skill("oneticket-complete-sprint-technical") — Technical Notes completion in sprint.md (@architect)
 ```
 
 Load only what you need based on the user request and the audit results.
 If the request targets only user stories → load `oneticket-doc-structure` + `oneticket-user-story`.
-If the request targets slices → also load `oneticket-c4` + `oneticket-vertical-slice`.
-If the request is global → load all five.
+If the request targets sprints → also load `oneticket-c4` + `oneticket-create-sprint` + `oneticket-complete-sprint-technical`.
+If the request is global → load all.
+
+> **Legacy note:** if the project still has `how/slices/` (legacy structure), also load `oneticket-vertical-slice` to handle existing slices. Do not create new slices — create sprints instead.
 
 ---
 
@@ -46,7 +49,7 @@ All documentation artifacts derive from two source-of-truth files:
 
 ```
 product-spec.md   → functional vision → epics → user stories
-architecture.md   → technical vision  → C4 diagrams → slices
+architecture.md   → technical vision  → C4 diagrams → sprints (Technical Notes)
 ```
 
 **If these files are absent or empty** → infer them from the code **first**, before deriving any downstream artifact.
@@ -108,8 +111,12 @@ Always respect this order — upstream artifacts must exist before downstream on
                           derived from epic + code — one story per observable feature
 5. C4 diagrams          → load skill("oneticket-c4")
                           derived from architecture + code
-6. slices               → load skill("oneticket-vertical-slice")
-                          derived from user stories + architecture
+6. sprints              → load skill("oneticket-create-sprint")
+                          @po creates sprint.md shell: goal + selected US + cross-references
+                          derived from user stories
+7. sprint Technical Notes → load skill("oneticket-complete-sprint-technical")
+                          @architect completes ## Technical Notes in each sprint.md
+                          derived from architecture + code
 ```
 
 **Skip any step if the target file exists and is non-empty**, unless the user explicitly asked to update it.
@@ -146,26 +153,30 @@ These tasks own exclusive files — no conflict risk:
 
 | Task | Owns |
 |---|---|
-| One task per user story | `what/epics/epic-N/user-stories/us-NNN-*.md` |
-| One task per C4 diagram | `how/c4/system-context.md`, `how/c4/containers.md`, `how/c4/components.md`, `how/c4/deployment.md` |
-| One task per slice | `how/slices/slice-N-*/slice.md` |
+   | One task per user story | `what/epics/epic-N/user-stories/us-NNN-*.md` |
+   | One task per C4 diagram | `how/c4/system-context.md`, `how/c4/containers.md`, `how/c4/components.md`, `how/c4/deployment.md` |
+   | One task per sprint (shell) | `how/sprints/sprint-N-*/sprint.md` — @po creates shell |
+   | One task per ADR | `how/adr-NNN-*.md` — @architect |
 
 ### Sequential-only tasks (must be last, depend on ALL parallel tasks)
 
 These tasks write shared files that aggregate references to other artifacts:
 
-| Task | Owns | Must depend on |
-|---|---|---|
-| product-spec.md update | `what/product-spec.md` | ALL US + slice tasks |
-| epic.md update | `what/epics/epic-N/epic.md` | ALL US + slice tasks |
-| architecture.md update | `how/architecture.md` | ALL C4 + slice tasks |
+   | Task | Owns | Must depend on |
+   |---|---|---|
+   | product-spec.md update | `what/product-spec.md` | ALL US + sprint tasks |
+   | epic.md update | `what/epics/epic-N/epic.md` | ALL US + sprint tasks |
+   | architecture.md update | `how/architecture.md` | ALL C4 + sprint Technical Notes tasks |
+   | sprint Technical Notes | `how/sprints/sprint-N-*/sprint.md` (§ Technical Notes only) | sprint shell task + architecture task |
 
 ### Canonical pattern
 
 ```
-Tasks A, B, C...  → parallel   — US, slices, C4 diagrams (exclusive files)
-Task N (last)     → sequential — depends_on: [A, B, C...]
-                                  updates: epic.md, architecture.md, product-spec.md
+Tasks A, B, C...  → parallel   — US, sprint shells, C4 diagrams, ADRs (exclusive files)
+Task P            → sequential — @architect completes ## Technical Notes in sprint.md
+                                  depends_on: [A, B, C..., sprint shell tasks]
+Task N (last)     → sequential — depends_on: [A, B, C..., P]
+                                   updates: epic.md, architecture.md, product-spec.md
 ```
 
 **Rule:** if a manifest touches `epic.md`, `architecture.md`, or `product-spec.md`, that work **must** be the last task in the DAG and must declare `depends_on` on every task that produces artifacts it references.
@@ -179,5 +190,5 @@ Task N (last)     → sequential — depends_on: [A, B, C...]
 | "generate full doc from code" | All missing artifacts in order (phases 1→3) |
 | "update epics and user stories for tag filtering" | Audit what/epics/ → update or create relevant US only |
 | "generate C4 diagrams" | Audit how/c4/ → load oneticket-c4 → generate missing diagrams |
-| "sync the slices with the current implementation" | Audit how/slices/ → load oneticket-vertical-slice → update stale slices |
+| "sync the sprints with the current implementation" | Audit how/sprints/ → load oneticket-create-sprint + oneticket-complete-sprint-technical → update stale sprints |
 | "create the product spec" | Infer product-spec.md from code — only if absent or empty |

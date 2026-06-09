@@ -1,7 +1,7 @@
 ---
 name: oneticket-init-knowledge
 description: "Initialize and validate the mandatory knowledge base before any documentation or development cycle. Enforces sequential human-gated validation of product-spec.md, architecture.md, and epic-0-mvp."
-version: 1.0.0
+version: 2.0.0
 ---
 
 # oneticket-init-knowledge
@@ -19,7 +19,7 @@ One run = one manifest produced, or one question set if information is insuffici
 
 Refer to `oneticket-doc-structure` for all files to produce, their placement and naming conventions, and their templates.
 
-**All 8 steps must be included in a single manifest — never split across multiple runs or handoffs.**
+**All 9 steps must be included in a single manifest — never split across multiple runs or handoffs.**
 
 Respect these dependencies when building the manifest:
 
@@ -29,15 +29,19 @@ Respect these dependencies when building the manifest:
 4. `<docs_path>/how/architecture.md` — depends on product-spec.md + all us-*.md — role: architect
 5. `<docs_path>/how/c4/system-context.md` — depends on architecture.md — role: architect
 6. `<docs_path>/how/c4/containers.md` — depends on architecture.md — role: architect
-7. `<docs_path>/how/slices/` — depends on architecture.md + all us-*.md — role: architect
-   Produce one slice file per implementation unit — the set of slices must cover all user stories.
-8. cross-references — depends on ALL slice task IDs from step 7 — role: architect
+7. `<docs_path>/how/sprints/sprint-1-<name>/sprint.md` — depends on all us-*.md — role: po
+   `@po` creates the sprint shell: goal description, selected US, cross-references (epic ↔ US ↔ sprint).
+   The set of sprints must cover all user stories of the epic.
+8. `## Technical Notes` in sprint.md — depends on step 7 + architecture.md — role: architect
+   `@architect` completes the Technical Notes section of each sprint file produced in step 7.
+   This task modifies the file produced in step 7 — it must declare `depends_on` on step 7.
+9. cross-references — depends on ALL task IDs from steps 2, 3, 7 — role: po
    **Always the last task in the manifest — no exception.**
    **Must declare `depends_on` on every task whose output files it modifies.**
-   One single task — read all produced slice files and update:
-   - `## Related Slices` in `epic.md`
-   - `## Related Slices` in all `us-*.md`
-   - `## Related Epics` and `## Related User Stories` in each `slice.md`
+   One single task — read all produced sprint files and update:
+   - `## Related Sprints` in `epic.md`
+   - `## Related Sprints` in all `us-*.md`
+   - Cross-reference links in each `sprint.md` (epic ↔ US back-links)
 
    This task modifies files produced by steps 2, 3, and 7 — it must therefore depend on ALL
    tasks from steps 2, 3, and 7. Running it in parallel with any of these tasks will cause
@@ -47,18 +51,18 @@ Respect these dependencies when building the manifest:
 
    Cross-reference links — filename only convention:
 
-   When writing `## Related Slices`, `## Related Epics`, `## Related User Stories` sections,
+   When writing `## Related Sprints`, `## Related Epics`, `## Related User Stories` sections,
    write the **filename only** — no relative path, no `../`.
    The build script resolves the correct path automatically.
 
    | From file | Link format | Example |
    |---|---|---|
-   | `epic.md` → slice | `[Slice N — name](slice-N-name/slice.md)` | `[Slice 1 — Foundation](slice-1-foundation/slice.md)` |
+   | `epic.md` → sprint | `[Sprint N — name](sprint-N-name/sprint.md)` | `[Sprint 1 — Foundation](sprint-1-foundation/sprint.md)` |
    | `epic.md` → us | `[US-NNN — name](us-NNN-name.md)` | `[US-001 — Setup](us-001-setup.md)` |
-   | `us-NNN.md` → slice | `[Slice N — name](slice-N-name/slice.md)` | `[Slice 1 — Foundation](slice-1-foundation/slice.md)` |
+   | `us-NNN.md` → sprint | `[Sprint N — name](sprint-N-name/sprint.md)` | `[Sprint 1 — Foundation](sprint-1-foundation/sprint.md)` |
    | `us-NNN.md` → epic | `[Epic N — name](epic-N-name/epic.md)` | `[Epic 0 — MVP](epic-0-mvp/epic.md)` |
-   | `slice.md` → epic | `[Epic N — name](epic-N-name/epic.md)` | `[Epic 0 — MVP](epic-0-mvp/epic.md)` |
-   | `slice.md` → us | `[US-NNN — name](us-NNN-name.md)` | `[US-001 — Setup](us-001-setup.md)` |
+   | `sprint.md` → epic | `[Epic N — name](epic-N-name/epic.md)` | `[Epic 0 — MVP](epic-0-mvp/epic.md)` |
+   | `sprint.md` → us | `[US-NNN — name](us-NNN-name.md)` | `[US-001 — Setup](us-001-setup.md)` |
 
    **CRITICAL — never write `../` in cross-reference links. Filename only.**
 
@@ -70,8 +74,8 @@ The goal is to complete the knowledge base under `docs_path`
 following the structure defined in ## Production process.
 
 Some files require the expertise of specialized agents to be produced correctly —
-architecture.md is better handled by @architect who owns the technical decisions,
-product-spec, epics and user stories are better handled by @analyst who owns the functional documentation.
+architecture.md and Technical Notes are better handled by @architect who owns the technical decisions,
+product-spec, epics, user stories, and sprints are better handled by @analyst/@po who own the functional documentation.
 Delegating to the right role produces better results than doing everything yourself.
 
 All content is derived from what the user has provided.
@@ -120,7 +124,7 @@ If the information provided is insufficient, ask:
 Post a comment confirming the knowledge base is complete and suggesting next steps:
 - Decompose additional epics → `oneticket-epic-breakdown`
 - Document architecture → `oneticket-c4`
-- Derive implementation slices → `oneticket-vertical-slice`
+- Plan next sprint → `oneticket-create-sprint`
 
 ---
 
