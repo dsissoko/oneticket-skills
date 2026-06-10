@@ -27,6 +27,8 @@ LOAD skill `oneticket-error-handling-patterns` as SECOND ACTION after git checko
 | react, vite, frontend, SPA | `oneticket-stack-vite-react-primer` |
 | which stack, which skill, technology | `oneticket-technical-skill-picker` |
 | implementation, build, write code, app | `oneticket-technical-skill-picker` |
+| test, vitest, jest, testing, unit test | `oneticket-vitest-for-vite-react-primer` |
+| test fails, mock, jsdom, ESM, setup | `oneticket-vitest-for-vite-react-primer` |
 
 ## Responsibilities
 
