@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.0](https://github.com/dsissoko/oneticket-skills/compare/v1.1.0...v1.2.0) (2026-06-10)
+
+
+### Features
+
+* add oneticket-working-effectively-with-legacy-code skill — safe patterns for modifying existing code ([483c894](https://github.com/dsissoko/oneticket-skills/commit/483c894f1760c7bb334e2ef928e4fbbe34a55be6))
+* **skill:** add oneticket-write-skill — from mattpocock/skills (MIT) ([fbd507e](https://github.com/dsissoko/oneticket-skills/commit/fbd507eedd3d14f8fd50e9e65f8583a39663b1ae))
+* **skill:** add oneticket-write-skill — from mattpocock/skills (MIT) ([71a24d9](https://github.com/dsissoko/oneticket-skills/commit/71a24d916464a7b7370a801131b9b73c81ecf0b6))
+* **skills:** replace slices with sprints — update agent profiles and routing ([4ca2390](https://github.com/dsissoko/oneticket-skills/commit/4ca23909a9fdfe28cd1df141a5f99c19526c4bfd))
+* **skills:** replace slices with sprints — update agent profiles and routing ([059c404](https://github.com/dsissoko/oneticket-skills/commit/059c404552991803a36987388d9f0504fe6f9c57)), closes [#14](https://github.com/dsissoko/oneticket-skills/issues/14)
+
+
+### Bug Fixes
+
+* **agents:** add oneticket-vitest-for-vite-react-primer to dev and qa skill routing ([dadcb27](https://github.com/dsissoko/oneticket-skills/commit/dadcb27d5232d1e6a01291d1060fb0bc16ae6716))
+* **agents:** add oneticket-vitest-for-vite-react-primer to dev and qa skill routing ([c55e4e8](https://github.com/dsissoko/oneticket-skills/commit/c55e4e858c77f6b4966af690e06b343013068b53))
+* **skill:** register oneticket-write-skill in catalogue ([5d652e3](https://github.com/dsissoko/oneticket-skills/commit/5d652e3513e7bb1b5f2ec9b2ccb816cc5f2c2c61))
+
 ## [1.1.0](https://github.com/dsissoko/oneticket-skills/compare/v1.0.0...v1.1.0) (2026-06-06)
 
 
