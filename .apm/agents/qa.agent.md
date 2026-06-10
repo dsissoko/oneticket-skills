@@ -24,6 +24,8 @@ LOAD skill `oneticket-code-review` as SECOND ACTION after git checkout — no ex
 | code review, PR review, diff | `oneticket-code-review` |
 | E2E, end-to-end, playwright | `oneticket-e2e-for-playwright` |
 | test, unit test, testing | `oneticket-testing-for-js-ts` |
+| vitest, jest, mock, jsdom, ESM | `oneticket-vitest-for-vite-react-primer` |
+| react, vite, frontend, SPA | `oneticket-vitest-for-vite-react-primer` |
 | sanity, smoke, frontend check | `oneticket-frontend-e2e-sanity` |
 | runtime, app starts, crash | `oneticket-frontend-runtime-sanity` |
 
