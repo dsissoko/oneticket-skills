@@ -1,6 +1,6 @@
 ---
 name: oneticket-manifest-generation
-description: "Know the exact manifest format to produce when decomposing a request into parallel executable tasks for OneTicket."
+description: "Know the exact manifest format to produce when decomposing a request into sequential or parallel executable tasks for OneTicket."
 version: 1.0.0
 ---
 
@@ -63,7 +63,7 @@ Content must be exactly this JSON (no comments, no surrounding markdown):
 ## Dependency graph rules
 
 - **Number of tasks**: the manifest must not exceed `max_tasks` tasks in total. Before finalizing, count tasks produced. If this exceeds `max_tasks`, group closest tasks (same role, same functional scope) to bring total to `max_tasks` or less. Never ignore this constraint.
-- **Sequential vs parallel**: prefer sequential dependent tasks when they risk modifying shared files. Prefer parallel tasks when they touch distinct locations.
+- **Sequential vs parallel**: by default, use strictly sequential tasks (each task depends on the previous one: A → B → C). Only use parallel tasks when the prompt explicitly contains `--parallel` AND tasks touch strictly distinct files with no shared writes.
 - **No cycles**: A cannot depend on B if B depends on A
 - **Valid referenced ids**: `depends_on` can only contain ids defined in `tasks`
 - **Granularity**: a task may produce multiple files — but no two parallel tasks may write to the same file. If two tasks need the same file, sequence them with `depends_on`.
@@ -91,7 +91,7 @@ It must be:
 
 ---
 
-## Example — 3 sequential epics with parallel tasks
+## Example — 3 sequential tasks (default behavior)
 
 ```json
 {
