@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="oneticket.png" alt="OneTicket logo" width="120" />
+</p>
+
 # oneticket-skills
 
 Reusable agent skills for the [OneTicket](https://github.com/dsissoko/oneticket-core) multi-agent framework.
