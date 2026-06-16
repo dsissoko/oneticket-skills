@@ -74,7 +74,7 @@ Code review, error handling, commit conventions and CI workflows.
 
 - `oneticket-code-review` — code reviews following Sentry engineering practices
 - `oneticket-error-handling-patterns` — error handling patterns across languages for resilient applications
-- `oneticket-commit-conventions` — commit message conventions with release-please effects
+- `oneticket-commit-conventions` — commit message conventions with [release-please](https://github.com/googleapis/release-please) effects.
 
 ### Game Development
 
