@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="oneticket.png" alt="OneTicket logo" width="120" />
+  <img src="oneticket.png" alt="OneTicket logo" width="600" />
 </p>
 
 # oneticket-skills
