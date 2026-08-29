@@ -12,16 +12,50 @@ Skills are instruction sets loaded by agents at runtime via [APM](https://github
 
 ## Installation
 
+### 1. Install APM
+
+APM must be installed once on the machine before installing this package.
+
+**Windows (PowerShell):**
+
+```powershell
+irm https://aka.ms/apm-windows | iex
+```
+
+**macOS / Linux:**
+
+```bash
+curl -sSL https://aka.ms/apm-unix | sh
+```
+
+Verify the installation:
+
+```bash
+apm --version
+```
+
+### 2. Install oneticket-skills in a project
+
+From the root of any target repository:
+
 ```bash
 apm install dsissoko/oneticket-skills
 ```
 
-Or reference in your `apm.yml`:
+APM installs the package into the current project and deploys the available skills, agents, and MCP configuration to the compatible agent runtimes it detects.
+
+Or reference the package in your `apm.yml`:
 
 ```yaml
 dependencies:
   apm:
     - dsissoko/oneticket-skills#main
+```
+
+Then run:
+
+```bash
+apm install
 ```
 
 ---
