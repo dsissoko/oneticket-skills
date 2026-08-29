@@ -10,7 +10,7 @@ version: 0.1.0
 
 This skill defines the behavior for an LLM-maintained wiki: a persistent, human-readable knowledge base that accumulates synthesis over time instead of rediscovering the same input material on every query.
 
-Input material remains available as evidence, while the wiki stores durable synthesized knowledge, explicit relationships, and provenance.
+Input material remains available as evidence, while the wiki stores durable synthesized knowledge, explicit relationships, provenance, a navigable index, and an append-only activity log.
 
 The default conceptual model is defined in `references/default-ontology.md`.
 
@@ -25,6 +25,8 @@ The default conceptual model is defined in `references/default-ontology.md`.
 5. **Prefer explicit relationships** — connect related concepts, claims, inputs, people, organizations, and topics.
 6. **Human-readable first** — the wiki must remain understandable and editable without specialized tooling.
 7. **Ontology is project-specific** — use the default ontology as a starting point, then respect any project-local ontology that supersedes it.
+8. **Index first** — `docs/wiki/index.md` is the primary entry point into the accumulated wiki.
+9. **Keep an activity trail** — record INGEST, QUERY, and LINT operations in `docs/wiki/log.md`.
 
 ---
 
@@ -36,21 +38,34 @@ The skill is designed to work immediately in the active repository of an AI codi
 docs/
 ├── input/                 # incoming information not yet integrated into the wiki
 ├── wiki/                  # synthesized persistent knowledge
+│   ├── index.md           # primary catalog and navigation entry point
+│   ├── log.md             # append-only activity log
+│   └── ...                # synthesized wiki pages
 └── ontology/              # project-local ontology
-    └── ontology.md
+    └── ontology.md        # optional specialization
 ```
 
 Default paths:
 
 - `input_path`: `docs/input/`
 - `wiki_path`: `docs/wiki/`
+- `index_path`: `docs/wiki/index.md`
+- `log_path`: `docs/wiki/log.md`
 - `ontology_path`: `docs/ontology/`
 
 `docs/input/` contains external or newly produced information that has not yet been integrated into the wiki ontology. It may contain documents, analyses, notes, transcripts, extracted information, or other material prepared by upstream skills or agents.
 
 `docs/wiki/` contains the persistent synthesized knowledge maintained by this skill.
 
+`docs/wiki/index.md` is the primary entry point into the wiki. It must provide a concise catalog of wiki pages with links and short descriptions sufficient for an agent or human to discover relevant knowledge before scanning the full wiki.
+
+`docs/wiki/log.md` is an append-only chronological log of significant INGEST, QUERY, and LINT operations. Each entry should be concise and include the operation type, date/time when available, relevant inputs or pages, and a short description of what changed or was queried.
+
 `docs/ontology/` contains the ontology governing how knowledge is represented and related in the wiki. If `docs/ontology/ontology.md` exists, treat it as authoritative. Otherwise use `references/default-ontology.md` as the reference ontology.
+
+If `docs/input/` or `docs/wiki/` do not exist when the skill first needs to write to them, create the required directories. If `docs/wiki/index.md` or `docs/wiki/log.md` do not exist, initialize them automatically before the first INGEST operation.
+
+Do not create `docs/ontology/ontology.md` automatically. The absence of a project-local ontology means the default ontology from this skill remains active.
 
 The default paths may be overridden by the caller when a repository requires a different layout.
 
@@ -62,14 +77,17 @@ The default paths may be overridden by the caller when a repository requires a d
 
 Use when new material enters `docs/input/` or is otherwise provided for integration.
 
-1. Read the active ontology.
-2. Inspect the new input and identify the knowledge it contributes.
-3. Locate existing wiki pages covering the same concepts or topics.
-4. Integrate new information into existing pages whenever possible.
-5. Create a new page only when the knowledge represents a genuinely new concept, topic, actor, or coherent body of knowledge.
-6. Record provenance for non-trivial claims.
-7. Add or update cross-links to related pages.
-8. Update any relevant indexes or navigation pages.
+1. Ensure `docs/wiki/index.md` and `docs/wiki/log.md` exist; initialize them if necessary.
+2. Read the active ontology.
+3. Read `docs/wiki/index.md` before scanning individual wiki pages.
+4. Inspect the new input and identify the knowledge it contributes.
+5. Locate existing wiki pages covering the same concepts or topics.
+6. Integrate new information into existing pages whenever possible.
+7. Create a new page only when the knowledge represents a genuinely new concept, topic, actor, or coherent body of knowledge.
+8. Record provenance for non-trivial claims.
+9. Add or update cross-links to related pages.
+10. Update `docs/wiki/index.md` with links and concise descriptions for all relevant pages.
+11. Append a concise INGEST entry to `docs/wiki/log.md` describing the input processed and the wiki pages created or changed.
 
 Do not merely summarize each input into a new file. The goal is to evolve the knowledge base.
 
@@ -77,11 +95,13 @@ Do not merely summarize each input into a new file. The goal is to evolve the kn
 
 Use when answering a question from the accumulated wiki.
 
-1. Start from `docs/wiki/`, not from the input corpus.
-2. Traverse related pages when the answer requires multiple concepts.
-3. Consult `docs/input/` when provenance, ambiguity, or missing detail requires verification.
-4. Distinguish established knowledge from inference or unresolved uncertainty.
-5. Prefer answers that reuse accumulated synthesis rather than rebuilding it from scratch.
+1. Start with `docs/wiki/index.md` to identify the most relevant wiki pages.
+2. Read the relevant synthesized pages rather than scanning the entire input corpus.
+3. Traverse related pages when the answer requires multiple concepts.
+4. Consult `docs/input/` when provenance, ambiguity, or missing detail requires verification.
+5. Distinguish established knowledge from inference or unresolved uncertainty.
+6. Prefer answers that reuse accumulated synthesis rather than rebuilding it from scratch.
+7. Append a concise QUERY entry to `docs/wiki/log.md` when the query materially uses or tests the accumulated wiki.
 
 ### LINT
 
@@ -97,8 +117,11 @@ Check for:
 - concepts that should be merged or split
 - ontology drift
 - inconsistent naming
+- missing or stale entries in `docs/wiki/index.md`
 
-When safe, repair structural issues directly. When a semantic conflict cannot be resolved from available evidence, record it explicitly rather than inventing a resolution.
+When safe, repair structural issues directly. Keep `docs/wiki/index.md` synchronized with the actual wiki contents. When a semantic conflict cannot be resolved from available evidence, record it explicitly rather than inventing a resolution.
+
+Append a concise LINT entry to `docs/wiki/log.md` summarizing checks performed and any repairs or unresolved issues.
 
 ### EVOLVE ONTOLOGY
 
@@ -120,6 +143,8 @@ Do not evolve the ontology for one-off exceptions.
 - Never fabricate provenance.
 - Never create a new page when an existing page can be coherently extended.
 - Never force project knowledge into the default ontology when a project-local ontology exists.
+- Never rewrite or truncate existing `docs/wiki/log.md` history; append new entries.
+- Keep `docs/wiki/index.md` concise and synchronized with the actual wiki contents.
 - Keep ontology concepts few and composable; avoid premature specialization.
 - Treat uncertainty as first-class information.
 - Prefer links and explicit relations over repeated prose.
