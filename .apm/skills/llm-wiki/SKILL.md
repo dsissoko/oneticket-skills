@@ -71,6 +71,20 @@ The default paths may be overridden by the caller when a repository requires a d
 
 ---
 
+## Knowledge Discovery and Indexing
+
+`docs/wiki/index.md` is part of the wiki itself. It is persistent, versioned, human-readable, and maintained by this skill. It remains the canonical navigation map for the wiki regardless of which retrieval tools are available.
+
+External search and indexing capabilities exposed by the agent environment may complement this navigation model. They are useful for larger wikis, semantic discovery, hybrid retrieval, or locating material that is difficult to identify from the index alone.
+
+When appropriate, use available retrieval tooling to improve discovery, then read the authoritative Markdown pages before synthesizing an answer. Such tooling is an access layer over the wiki, not part of the wiki's storage model or ontology.
+
+QMD is one example of a compatible retrieval tool. When QMD search capabilities are exposed to the agent, they may be used for lexical, semantic, or hybrid discovery over the Markdown corpus. QMD configuration, collection management, indexing, and embedding are independent operational concerns and are not responsibilities of this skill.
+
+Any external search index must be treated as derived and rebuildable. It must not replace `docs/wiki/index.md`, become a source of truth, or be required for the wiki lifecycle to remain valid.
+
+---
+
 ## Operations
 
 ### INGEST
@@ -81,7 +95,7 @@ Use when new material enters `docs/input/` or is otherwise provided for integrat
 2. Read the active ontology.
 3. Read `docs/wiki/index.md` before scanning individual wiki pages.
 4. Inspect the new input and identify the knowledge it contributes.
-5. Locate existing wiki pages covering the same concepts or topics.
+5. Locate existing wiki pages covering the same concepts or topics, using appropriate repository search or retrieval capabilities when useful.
 6. Integrate new information into existing pages whenever possible.
 7. Create a new page only when the knowledge represents a genuinely new concept, topic, actor, or coherent body of knowledge.
 8. Record provenance for non-trivial claims.
@@ -95,13 +109,14 @@ Do not merely summarize each input into a new file. The goal is to evolve the kn
 
 Use when answering a question from the accumulated wiki.
 
-1. Start with `docs/wiki/index.md` to identify the most relevant wiki pages.
-2. Read the relevant synthesized pages rather than scanning the entire input corpus.
-3. Traverse related pages when the answer requires multiple concepts.
-4. Consult `docs/input/` when provenance, ambiguity, or missing detail requires verification.
-5. Distinguish established knowledge from inference or unresolved uncertainty.
-6. Prefer answers that reuse accumulated synthesis rather than rebuilding it from scratch.
-7. Append a concise QUERY entry to `docs/wiki/log.md` when the query materially uses or tests the accumulated wiki.
+1. Start with `docs/wiki/index.md` as the persistent navigation map of the wiki.
+2. Discover the most relevant knowledge using the index, links, repository search, and any appropriate retrieval capabilities exposed by the agent environment.
+3. Read the relevant synthesized Markdown pages rather than relying on search-result snippets or derived indexes as authoritative content.
+4. Traverse related pages when the answer requires multiple concepts.
+5. Consult `docs/input/` when provenance, ambiguity, or missing detail requires verification.
+6. Distinguish established knowledge from inference or unresolved uncertainty.
+7. Prefer answers that reuse accumulated synthesis rather than rebuilding it from scratch.
+8. Append a concise QUERY entry to `docs/wiki/log.md` when the query materially uses or tests the accumulated wiki.
 
 ### LINT
 
@@ -145,10 +160,12 @@ Do not evolve the ontology for one-off exceptions.
 - Never force project knowledge into the default ontology when a project-local ontology exists.
 - Never rewrite or truncate existing `docs/wiki/log.md` history; append new entries.
 - Keep `docs/wiki/index.md` concise and synchronized with the actual wiki contents.
+- Treat external search indexes as derived, disposable access layers rather than canonical knowledge.
+- Do not make the validity of the wiki dependent on QMD or any other external retrieval engine.
 - Keep ontology concepts few and composable; avoid premature specialization.
 - Treat uncertainty as first-class information.
 - Prefer links and explicit relations over repeated prose.
-- Keep implementation concerns separate from the conceptual ontology: storage engines, vector databases, event buses, and UI frameworks are tooling choices, not ontology concepts.
+- Keep implementation concerns separate from the conceptual ontology: storage engines, vector databases, event buses, search engines, and UI frameworks are tooling choices, not ontology concepts.
 
 ---
 
