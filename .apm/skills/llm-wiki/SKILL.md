@@ -1,6 +1,6 @@
 ---
 name: llm-wiki
-description: "Build and maintain a persistent Markdown knowledge wiki inspired by Andrej Karpathy's LLM Wiki pattern. Use when ingesting source material, integrating knowledge into an existing wiki, querying accumulated knowledge, or linting the wiki for coherence."
+description: "Build and maintain a persistent Markdown knowledge wiki inspired by Andrej Karpathy's LLM Wiki pattern. Use when ingesting input material, integrating knowledge into an existing wiki, querying accumulated knowledge, or linting the wiki for coherence."
 version: 0.1.0
 ---
 
@@ -8,9 +8,9 @@ version: 0.1.0
 
 ## Purpose
 
-This skill defines the behavior for an LLM-maintained wiki: a persistent, human-readable knowledge base that accumulates synthesis over time instead of rediscovering the same source material on every query.
+This skill defines the behavior for an LLM-maintained wiki: a persistent, human-readable knowledge base that accumulates synthesis over time instead of rediscovering the same input material on every query.
 
-The wiki is not a RAG index. Raw sources remain available as evidence, while the wiki stores durable synthesized knowledge, explicit relationships, and provenance.
+Input material remains available as evidence, while the wiki stores durable synthesized knowledge, explicit relationships, and provenance.
 
 The default conceptual model is defined in `references/default-ontology.md`.
 
@@ -19,28 +19,40 @@ The default conceptual model is defined in `references/default-ontology.md`.
 ## Core Principles
 
 1. **Persistent synthesis** — integrate useful knowledge into durable Markdown pages.
-2. **Raw sources are immutable evidence** — do not rewrite source material to make it fit the wiki.
+2. **Input material remains evidence** — do not rewrite input material to make it fit the wiki.
 3. **Synthesize before duplicating** — update an existing concept or topic when appropriate instead of creating near-duplicates.
-4. **Preserve provenance** — important claims must remain traceable to one or more sources.
-5. **Prefer explicit relationships** — connect related concepts, claims, sources, people, organizations, and topics.
+4. **Preserve provenance** — important claims must remain traceable to one or more inputs.
+5. **Prefer explicit relationships** — connect related concepts, claims, inputs, people, organizations, and topics.
 6. **Human-readable first** — the wiki must remain understandable and editable without specialized tooling.
 7. **Ontology is project-specific** — use the default ontology as a starting point, then respect any project-local ontology that supersedes it.
 
 ---
 
-## Expected Project Structure
+## Default Repository Structure
 
-A project may use any physical layout, but the following logical areas must exist:
+The skill is designed to work immediately in the active repository of an AI coding agent or CLI. Unless explicitly overridden, use these paths relative to the repository root:
 
 ```text
-knowledge/
-├── raw/                  # source material; immutable after ingestion
-├── wiki/                 # synthesized persistent knowledge
-├── ontology.md           # project-local ontology, if specialized
-└── ingestion-log.md      # optional ingestion/provenance log
+docs/
+├── input/                 # incoming information not yet integrated into the wiki
+├── wiki/                  # synthesized persistent knowledge
+└── ontology/              # project-local ontology
+    └── ontology.md
 ```
 
-If `ontology.md` exists, treat it as authoritative for that project. Otherwise use `references/default-ontology.md`.
+Default paths:
+
+- `input_path`: `docs/input/`
+- `wiki_path`: `docs/wiki/`
+- `ontology_path`: `docs/ontology/`
+
+`docs/input/` contains external or newly produced information that has not yet been integrated into the wiki ontology. It may contain documents, analyses, notes, transcripts, extracted information, or other material prepared by upstream skills or agents.
+
+`docs/wiki/` contains the persistent synthesized knowledge maintained by this skill.
+
+`docs/ontology/` contains the ontology governing how knowledge is represented and related in the wiki. If `docs/ontology/ontology.md` exists, treat it as authoritative. Otherwise use `references/default-ontology.md` as the reference ontology.
+
+The default paths may be overridden by the caller when a repository requires a different layout.
 
 ---
 
@@ -48,27 +60,26 @@ If `ontology.md` exists, treat it as authoritative for that project. Otherwise u
 
 ### INGEST
 
-Use when new source material enters the knowledge base.
+Use when new material enters `docs/input/` or is otherwise provided for integration.
 
 1. Read the active ontology.
-2. Inspect the new source and identify the knowledge it contributes.
+2. Inspect the new input and identify the knowledge it contributes.
 3. Locate existing wiki pages covering the same concepts or topics.
 4. Integrate new information into existing pages whenever possible.
 5. Create a new page only when the knowledge represents a genuinely new concept, topic, actor, or coherent body of knowledge.
 6. Record provenance for non-trivial claims.
 7. Add or update cross-links to related pages.
 8. Update any relevant indexes or navigation pages.
-9. Record the ingestion event when an ingestion log is used.
 
-Do not merely summarize the source into a new file. The goal is to evolve the knowledge base.
+Do not merely summarize each input into a new file. The goal is to evolve the knowledge base.
 
 ### QUERY
 
 Use when answering a question from the accumulated wiki.
 
-1. Start from the synthesized wiki, not the raw corpus.
+1. Start from `docs/wiki/`, not from the input corpus.
 2. Traverse related pages when the answer requires multiple concepts.
-3. Consult raw sources when provenance, ambiguity, or missing detail requires verification.
+3. Consult `docs/input/` when provenance, ambiguity, or missing detail requires verification.
 4. Distinguish established knowledge from inference or unresolved uncertainty.
 5. Prefer answers that reuse accumulated synthesis rather than rebuilding it from scratch.
 
@@ -105,7 +116,7 @@ Do not evolve the ontology for one-off exceptions.
 
 ## Rules
 
-- Never delete raw evidence solely because its knowledge has been synthesized into the wiki.
+- Never delete input evidence solely because its knowledge has been synthesized into the wiki.
 - Never fabricate provenance.
 - Never create a new page when an existing page can be coherently extended.
 - Never force project knowledge into the default ontology when a project-local ontology exists.
